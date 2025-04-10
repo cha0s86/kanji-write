@@ -59,7 +59,7 @@ int main() {
         // Variable for input
         std::wstring write;
 
-        std::wcout << writestring << std::endl;
+        std::wcout << writestring;
 
         std::wstring usertest;
 
