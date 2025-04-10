@@ -25,6 +25,8 @@ int main() {
 
     bool running = true;
 
+    int scorecounter = 0;
+
     while (running) {
 
         bool again;
@@ -64,11 +66,13 @@ int main() {
         std::wcin >> write;
         if (write == kanji) {
             std::wcout << correctstring << std::endl;
+            scorecounter++;
             std::wcout << "--------------------------" << std::endl;
         } else {
             std::wcout << incorrectstring << std::endl;
             std::wcout << "--------------------------" << std::endl;
             while (again != true) {
+                std::wcout << "You scored: " << scorecounter << "!" << std::endl;
                 std::wcout << playagainstring;
                 std::wcin >> usertest;
 
