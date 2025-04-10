@@ -1,7 +1,11 @@
 #include <iostream>
 #include <cstdlib>
 #include <fcntl.h>
+#include <fstream>
+#include <sstream>
 #include <random>
+#include <string>
+#include <codecvt>
 #include <io.h>
 
 #define KANJI_MIN   19968
@@ -65,22 +69,33 @@ int main() {
 
         std::random_device rd;  // a seed source for the random number engine
         std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-    
-        srand(gen());
-        
-        int randomkanji = rand() % 0x51AF + 0x4E00;
 
-        std::wcout << wchar_t(randomkanji) << std::endl;
+        // Open file
+        std::wfstream kanjifile("kanjibook.csv");
+        kanjifile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
+        std::wstring kanjiline;
+
+        std::wstring kanji;
+
+        srand(gen());
+        int randomkanjinumber = rand() % 2135;
+
+        for (int lines = 0; getline(kanjifile, kanjiline); lines++) {
+            // if lines = randomnumber store it to the write variable
+            if (lines == randomkanjinumber) {
+                kanji = kanjiline;
+            }
+        }
 
         // Variable for input
-        wchar_t  write;
+        std::wstring write;
 
-        std::wcout << writestring;
+        std::wcout << kanji;
 
         std::wstring usertest;
 
         std::wcin >> write;
-        if (write == wchar_t(randomkanji)) {
+        if (write == kanji) {
             std::wcout << correctstring << std::endl;
         } else {
             std::wcout << incorrectstring << std::endl;
