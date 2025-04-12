@@ -8,9 +8,6 @@
 #include <codecvt>
 #include <io.h>
 
-#define KANJI_MIN   19968
-#define KANJI_MAX   40879
-
 #define writestring         L"Write! 書け!: "
 #define correctstring       L"Correct! 正解!"
 #define incorrectstring     L"Incorrect! 違う!"
@@ -25,7 +22,7 @@ int main() {
 
     bool running = true;
 
-    int scorecounter = 0;
+    int score = 0;
 
     while (running) {
 
@@ -45,13 +42,13 @@ int main() {
 
         srand(gen());
         int randomkanjinumber = rand() % 2135;
-        int lines = 0;
+        int linecounter = 0;
 
-        for (lines = 0; getline(kanjifile, kanjiline); lines++) {
-            // if lines = randomnumber store it to the write variable
-            if (lines == randomkanjinumber) {
+        for (linecounter = 0; getline(kanjifile, kanjiline); linecounter++) {
+            // if linecounter = randomnumber store it to the write variable
+            if (linecounter == randomkanjinumber) {
                 kanji = kanjiline;
-                std::wcout << "Jouyou kanji #" << lines << " " << kanji << std::endl;
+                std::wcout << "Jouyou kanji #" << linecounter << " " << kanji << std::endl;
                 
             }
         }
@@ -61,24 +58,25 @@ int main() {
 
         std::wcout << writestring;
 
-        std::wstring usertest;
+        std::wstring userinput;
 
         std::wcin >> write;
         if (write == kanji) {
             std::wcout << correctstring << std::endl;
-            scorecounter++;
+            score++;
             std::wcout << "--------------------------" << std::endl;
         } else {
             std::wcout << incorrectstring << std::endl;
             std::wcout << "--------------------------" << std::endl;
             while (again != true) {
-                std::wcout << "You scored: " << scorecounter << "!" << std::endl;
+                std::wcout << "You scored: " << score << "!" << std::endl;
                 std::wcout << playagainstring;
-                std::wcin >> usertest;
+                std::wcin >> userinput;
 
-                if (usertest == L"はい") {
+                if (userinput == L"はい") {
+                    score = 0;
                     again = true;
-                } else if (usertest == L"いいえ") {
+                } else if (userinput == L"いいえ") {
                     running = false;
                     return 0;
                 } else {
