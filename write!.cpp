@@ -34,7 +34,7 @@ int main() {
         std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
 
         // Open file
-        std::wfstream kanjifile("kanjibook.csv");
+        std::wfstream kanjifile("databases/kanjibook.csv");
         kanjifile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
         std::wstring kanjiline;
 
